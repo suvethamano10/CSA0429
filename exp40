@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <sys/stat.h>
+
+int main() {
+    struct stat st;
+    stat("sample.txt", &st);
+
+    printf("User Permissions:\n");
+    printf("Read: %d\n", st.st_mode & S_IRUSR);
+    printf("Write: %d\n", st.st_mode & S_IWUSR);
+    printf("Execute: %d\n", st.st_mode & S_IXUSR);
+
+    return 0;
+}
