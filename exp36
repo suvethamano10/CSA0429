@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+int main() {
+    int disk[50], start, n, i, block[20];
+
+    // Initialize disk blocks as free
+    for(i = 0; i < 50; i++)
+        disk[i] = 0;
+
+    printf("Enter starting block: ");
+    scanf("%d", &start);
+
+    if(disk[start] == 0) {
+        printf("Enter number of blocks needed: ");
+        scanf("%d", &n);
+
+        printf("Enter the block numbers:\n");
+        for(i = 0; i < n; i++)
+            scanf("%d", &block[i]);
+
+        // Check if blocks are free
+        for(i = 0; i < n; i++) {
+            if(disk[block[i]] == 1) {
+                printf("Block %d already allocated. Allocation failed!\n", block[i]);
+                return 0;
+            }
+        }
+
+        // Allocate blocks
+        disk[start] = 1;
+        for(i = 0; i < n; i++)
+            disk[block[i]] = 1;
+
+        printf("\nFile Allocated Successfully!\n");
+        printf("Start Block: %d\n", start);
+        printf("Linked Blocks: %d ", start);
+
+        for(i = 0; i < n; i++)
+            printf("-> %d ", block[i]);
+
+        printf("-> NULL\n");
+    }
+    else {
+        printf("Starting block already allocated!\n");
+    }
+
+    return 0;
+}
