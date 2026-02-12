@@ -1,0 +1,45 @@
+#include <stdio.h>
+
+int main() {
+    int disk[50], indexBlock, n, i, block[20];
+
+    // Initially all disk blocks are free (0)
+    for(i = 0; i < 50; i++)
+        disk[i] = 0;
+
+    printf("Enter index block: ");
+    scanf("%d", &indexBlock);
+
+    if(disk[indexBlock] == 0) {
+        printf("Enter number of blocks needed: ");
+        scanf("%d", &n);
+
+        printf("Enter the block numbers:\n");
+        for(i = 0; i < n; i++)
+            scanf("%d", &block[i]);
+
+        // Check if blocks are free
+        for(i = 0; i < n; i++) {
+            if(disk[block[i]] == 1) {
+                printf("Block %d already allocated. Allocation failed!\n", block[i]);
+                return 0;
+            }
+        }
+
+        // Allocate index block and data blocks
+        disk[indexBlock] = 1;
+        for(i = 0; i < n; i++)
+            disk[block[i]] = 1;
+
+        printf("\nFile Allocated Successfully!\n");
+        printf("Index Block: %d\n", indexBlock);
+        printf("Blocks Allocated: ");
+        for(i = 0; i < n; i++)
+            printf("%d ", block[i]);
+    }
+    else {
+        printf("Index Block already allocated!\n");
+    }
+
+    return 0;
+}
